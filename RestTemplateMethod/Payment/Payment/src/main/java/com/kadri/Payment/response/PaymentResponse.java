@@ -9,9 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PaymentResponse {
-    private Long orderId;
-    private Double amount;
-    private PaymentMethod paymentMethod;
-    private String status;
-    private String transactionId;
+    private Long paymentId;
+    private String paymentStatus;
+    private Double amountPaid;
 }

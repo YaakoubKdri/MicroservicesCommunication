@@ -8,7 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/v1/payment")
+@RequestMapping("/api/v1/payments")
 @RequiredArgsConstructor
 public class PaymentController {
     private final PaymentService service;
@@ -19,8 +19,7 @@ public class PaymentController {
     }
 
     @GetMapping("/order/{orderId}")
-    public ResponseEntity<PaymentResponse> getPaymentByOrderId(@PathVariable("orderId") Long orderId){
-        PaymentResponse response = service.getPaymentByOrderId(orderId);
-        return ResponseEntity.ok(response);
+    public PaymentResponse getPaymentByOrderId(@PathVariable("orderId") Long orderId){
+        return service.getPaymentByOrderId(orderId);
     }
 }

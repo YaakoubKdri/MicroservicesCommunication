@@ -13,15 +13,16 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class PaymentService {
     private final PaymentRepository repository;
-    private final ModelMapper mapper;
+    private final OrderMapper mapper;
 
     public PaymentResponse processPayment(Payment payment) {
         payment.setTransactionId(UUID.randomUUID().toString());
         payment.setStatus("SUCCESS");
-        return mapper.map(repository.save(payment), PaymentResponse.class);
+        var response = repository.save(payment);
+        return mapper.fromOrder(response);
     }
 
     public PaymentResponse getPaymentByOrderId(Long orderId) {
-        return mapper.map(repository.findByOrderId(orderId), PaymentResponse.class);
+        return mapper.fromOrder(repository.findByOrderId(orderId));
     }
 }
