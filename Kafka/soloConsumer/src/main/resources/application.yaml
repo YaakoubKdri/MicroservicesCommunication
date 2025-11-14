@@ -2,17 +2,25 @@ spring:
   kafka:
     bootstrap-servers: localhost:9092
     consumer:
-      group-id: my-shared-group
+      group-id: my-unique-group
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+
       value-deserializer: org.springframework.kafka.support.serializer.ErrorHandlingDeserializer
+
       properties:
         spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
-        spring.json.trusted.packages: "com.kadri.consumer.model,com.kadri.producer.model"
-        spring.json.value.default.type: com.kadri.consumer.model.MessageEvent
-        spring.json.type.mapping: "com.kadri.producer.model.MessageEvent:com.kadri.consumer.model.MessageEvent"
+
+        spring.json.trusted.packages: "*"
+
+        spring.json.value.default.type: com.kadri.soloConsumer.model.MessageEvent
+
+        spring.json.type.mapping: "com.kadri.producer.model.MessageEvent:com.kadri.soloConsumer.model.MessageEvent"
 
     listener:
       missing-topics-fatal: false
 
 app:
   topic: demo-topic
+
+server:
+  port: 8083
