@@ -18,7 +18,7 @@ public class EventProducer {
     public CompletableFuture<SendResult<String, MessageEvent>> send(String topic, String key, MessageEvent event){
         return kafkaTemplate.send(topic, key, event)
                 .thenApply( result ->{
-                    System.out.println("Sent: " + result.getRecordMetadata());
+                    System.out.println("[Producer] Sent: " + result.getRecordMetadata());
                     return result;
                         });
     }
